@@ -20,7 +20,14 @@ function (err) {
 		return console.error(err);
 	}
 	console.log("Data read : " + data.toString());
-		
+	// delete the file
+	fs.unlink("Testfile.txt", (err) => {
+		if (err) {
+			throw err;
+		}
+	
+	console.log("Delete File successfully.");
+	});
 	});
 }
 );
