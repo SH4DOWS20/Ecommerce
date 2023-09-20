@@ -16,7 +16,7 @@ const handleRequest = (req, res) => {
 };
 
 // Define the port number. Use the value from the environment variable 'PORT', or default to 3001.
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Create an HTTP server and pass the request handling function to it.
 const server = http.createServer(handleRequest);
