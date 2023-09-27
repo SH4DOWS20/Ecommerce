@@ -1,4 +1,4 @@
-const fs = require('fs');
+/*const fs = require('fs');
 const path = require('path');
 
 // read a file using file system 
@@ -9,4 +9,4 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     fileData = data;
     console.log("File read successfully");
 }
-);
+); */
