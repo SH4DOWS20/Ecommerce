@@ -1,4 +1,4 @@
-var fs = require("fs");
+/*var fs = require("fs");
 console.log(" Writing into an file ");
 
 // Testfile.txt is an empty file
@@ -30,4 +30,4 @@ function (err) {
 	});
 	});
 }
-);
+);*/
