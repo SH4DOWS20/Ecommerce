@@ -81,9 +81,9 @@ app.put('/api/cart/update/:id', (req, res) => {
 
   if (cartItem) {
     cartItem.name = updatedName;
-    res.status(200).send(`cart with ID ${cartId} updated.`);
+    res.status(200).send(`Cart with ID ${cartId} updated.`);
   } else {
-    res.status(404).send(`cart with ID ${cartId} not found.`);
+    res.status(404).send(`Cart with ID ${cartId} not found.`);
   }
 });
 
@@ -97,11 +97,11 @@ app.delete('/api/cart/delete/:id', (req, res) => {
     cart.splice(index, 1);
     res.redirect('/api/cart');
   } else {
-    res.status(404).send(`cart with ID ${cartId} not found.`);
+    res.status(404).send(`Cart with ID ${cartId} not found.`);
   }
 });
 
-// Create an HTTP server and pass the request handling function to it.
+// Create an HTTP server and pass the Express app to it.
 const server = http.createServer(app);
 
 // Define the port number. Use the value from the environment variable 'PORT', or default to 3008.
