@@ -1,13 +1,14 @@
-// Import the 'http' module to create an HTTP server.
+// Import the required modules
 const http = require('http');
 const express = require('express');
 const app = express();
 const methodOverride = require('method-override');
 
 // Middleware setup
-app.use(express.urlencoded()); // Parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(express.json()); // Parse JSON bodies
 app.set('view engine', 'ejs'); // Set the view engine to EJS
+app.set('views', __dirname + '/views'); // Set the views directory (adjust the path as needed)
 app.use(methodOverride('_method')); // Override HTTP methods using a query parameter
 
 // Request logging middleware
@@ -15,7 +16,7 @@ app.use((req, res, next) => {
   console.log(`${req.method} request for ${req.url}`);
   next();
 });
-function handleRequest(req, res) { }
+
 // Sample cart data
 const cart = [
   { id: 1, name: 'Exclusive ice hat' },
@@ -49,12 +50,12 @@ app.get('/api/cart', async (req, res) => {
 
 // Route for adding items to the cart
 app.get('/api/cart/add', (req, res) => {
-  res.render('Browse.ejs');
+  res.render('Browse'); // Assuming you have a 'Browse.ejs' template in the 'views' directory
 });
 
 // Route for adding items to the cart by ID
 app.get('/api/cart/add/:id', (req, res) => {
-  res.render('Addtocart.ejs');
+  res.render('Addtocart'); // Assuming you have an 'Addtocart.ejs' template in the 'views' directory
 });
 
 // Route for handling POST requests to add items to the cart
@@ -101,8 +102,7 @@ app.delete('/api/cart/delete/:id', (req, res) => {
 });
 
 // Create an HTTP server and pass the request handling function to it.
-
-const server = http.createServer(handleRequest);
+const server = http.createServer(app);
 
 // Define the port number. Use the value from the environment variable 'PORT', or default to 3008.
 const PORT = process.env.PORT || 3008;
