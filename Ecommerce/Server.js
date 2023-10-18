@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Import required modules
+=======
+/*// Import required modules
+>>>>>>> 357b829f37a4c53fc106faec7186b93853a99c93
 const http = require('http'); // Import the 'http' module for creating an HTTP server
 const fs = require('fs'); // Import the 'fs' module for working with the file system
 const path = require('path'); // Import the 'path' module for handling file paths
@@ -27,6 +31,12 @@ const server = http.createServer((req, res) => {
 });
 
 // Start the server on port 3000
+<<<<<<< HEAD
 server.listen(3000, () => {
   console.log('Server running on <http://localhost:3000/>');
 });
+=======
+/*server.listen(3000, () => {
+  console.log('Server running on <http://localhost:3000/>');
+});*/
+>>>>>>> 357b829f37a4c53fc106faec7186b93853a99c93

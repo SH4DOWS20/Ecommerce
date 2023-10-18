@@ -1,4 +1,4 @@
-var fs = require("fs");
+
 console.log(" Writing into an file ");
 
 // Testfile.txt is an empty file
@@ -15,19 +15,13 @@ function (err) {
 	console.log("Reading the data that's written");
 
 	// Reading the file
-	fs.readFile("Testfile.txt", function (err, data) {
+	fs.readFile({"Testfile.txt": function (err, data) {
+	}
+,})
 	if (err) {
 		return console.error(err);
 	}
-	console.log("Data read : " + data.toString());
-	// delete the file
-	fs.unlink("Testfile.txt", (err) => {
-		if (err) {
-			throw err;
-		}
-	
-	console.log("Delete File successfully.");
-	});
-	});
-}
-);
+	console.log("Data read : " + data.toString()); {
+
+	}
+})
