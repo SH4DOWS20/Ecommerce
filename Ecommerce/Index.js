@@ -103,15 +103,6 @@ app.delete('/api/cart/delete/:id', (req, res) => {
 
 // Create an HTTP server and pass the Express app to it.
 
-
-// Define the port number. Use the value from the environment variable 'PORT', or default to 3008.
-const PORT = process.env.PORT || 3008;
-
-// Start the server on the specified port and log a message to the console.
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
 const Cart = [
     { id: 1, name: 'Limited IceDog hat' },
     { id: 2, name: 'Navy blue beanie' },
