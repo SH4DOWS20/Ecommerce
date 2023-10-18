@@ -19,12 +19,6 @@ const Cart = [
     { id: 3, name: 'Green baseball cap' },
 ];
 
-function startServer() {
-    app.listen(port, () => {
-        console.log(`Server running at http://localhost:${port}/`);
-    });
-}
-
 app.get('/', (req, res) => {
     res.send(`<button><a href="/cart">Cart</a></button> <button><a href="/addCart">Add Cart</a></button>`);
 });
@@ -93,8 +87,14 @@ app.post('/api/cart/update/:id', (req, res) => {
     } else {
         res.status(404).send(`Cart with ID ${CartId} not found.`);
     }
+});
+
+function startServer() {
+    app.listen(port, () => {
+        console.log(`Server running at http://localhost:${port}/`);
+    });
 }
 
-startServer();
-
 module.exports = { startServer };
+
+startServer();  // Move this line to the end of the code
