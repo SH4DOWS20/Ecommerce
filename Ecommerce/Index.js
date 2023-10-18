@@ -89,12 +89,6 @@ app.post('/api/cart/update/:id', (req, res) => {
     }
 });
 
-function startServer() {
-    app.listen(port, () => {
-        console.log(`Server running at http://localhost:${port}/`);
-    });
-}
-
-module.exports = { startServer };
-
-startServer();  // Move this line to the end of the code
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+});
