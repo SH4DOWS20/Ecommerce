@@ -1,4 +1,8 @@
+<<<<<<< HEAD:Ecommerce/frontend/src/fileOperations.js
 /*var fs = require("fs");
+=======
+
+>>>>>>> origin/master:Ecommerce/fileOperations.js
 console.log(" Writing into an file ");
 
 // Testfile.txt is an empty file
@@ -15,10 +19,13 @@ function (err) {
 	console.log("Reading the data that's written");
 
 	// Reading the file
-	fs.readFile("Testfile.txt", function (err, data) {
+	fs.readFile({"Testfile.txt": function (err, data) {
+	}
+,})
 	if (err) {
 		return console.error(err);
 	}
+<<<<<<< HEAD:Ecommerce/frontend/src/fileOperations.js
 	console.log("Data read : " + data.toString());
 	// delete the file
 	fs.unlink("Testfile.txt", (err) => {
@@ -31,3 +38,9 @@ function (err) {
 	});
 }
 );*/
+=======
+	console.log("Data read : " + data.toString()); {
+
+	}
+})
+>>>>>>> origin/master:Ecommerce/fileOperations.js
