@@ -2,9 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const methodOverride = require('method-override');
-const { startServer } = require('./your-module-file.js');
 
-startServer();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
@@ -20,6 +18,12 @@ const Cart = [
     { id: 2, name: 'Navy blue beanie' },
     { id: 3, name: 'Green baseball cap' },
 ];
+
+function startServer() {
+    app.listen(port, () => {
+        console.log(`Server running at http://localhost:${port}/`);
+    });
+}
 
 app.get('/', (req, res) => {
     res.send(`<button><a href="/cart">Cart</a></button> <button><a href="/addCart">Add Cart</a></button>`);
@@ -89,12 +93,8 @@ app.post('/api/cart/update/:id', (req, res) => {
     } else {
         res.status(404).send(`Cart with ID ${CartId} not found.`);
     }
-});
-
-function startServer() {
-    app.listen(port, () => {
-        console.log(`Server running at http://localhost:${port}/`);
-    });
 }
+
+startServer();
 
 module.exports = { startServer };
