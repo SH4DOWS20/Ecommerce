@@ -102,7 +102,7 @@ app.delete('/api/cart/delete/:id', (req, res) => {
 });
 
 // Create an HTTP server and pass the Express app to it.
-const server = http.createServer(app);
+
 
 // Define the port number. Use the value from the environment variable 'PORT', or default to 3008.
 const PORT = process.env.PORT || 3008;
