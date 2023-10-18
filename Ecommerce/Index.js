@@ -45,7 +45,7 @@ app.get('/api/cart/add', (req, res) => {
 
 app.get('/api/cart/add/:id', (req, res) => {
     const CartId = parseInt(req.params.id);
-    const cartItem = Cart.find(item => item.id === CartId);
+    const cartItem = Cart.find(item => item.id == CartId);
     if (cartItem) {
         res.render('updateCart.ejs', { cartItem: cartItem });
     } else {
@@ -67,7 +67,7 @@ app.post('/api/cart', (req, res) => {
 
 app.post('/api/cart/delete/:id', (req, res) => {
     const CartId = parseInt(req.params.id);
-    const index = Cart.findIndex(item => item.id === CartId);
+    const index = Cart.findIndex(item => item.id == CartId);
     if (index !== -1) {
         Cart.splice(index, 1);
         res.redirect('/api/cart/');
@@ -79,7 +79,7 @@ app.post('/api/cart/delete/:id', (req, res) => {
 app.post('/api/cart/update/:id', (req, res) => {
     const CartId = parseInt(req.params.id);
     const updateName = req.body.name;
-    const cartItem = Cart.find(item => item.id === CartId);
+    const cartItem = Cart.find(item => item.id == CartId);
 
     if (cartItem) {
         cartItem.name = updateName;
