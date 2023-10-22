@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CartList from './components/CartList';
+import React, { useState, useEffect } from 'react';
+import { randomhatpurchase } from './randomhatpurchse';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -12,7 +14,27 @@ function App() {
       .then((data) => setCart(data))
       .catch((error) => console.error(error));
   }, []);
-
+  //
+  function randomhatpurchase() {
+    const [hat, setHat] = useState(0);
+  
+    useEffect(() => {
+      document.title = `Hats: ${hats}`;
+    }, [hats]);
+  
+    const incrementSteps = () => {
+      setSteps(steps + 1);
+    };
+    return (
+      <div>
+        <h1>IceDog</h1>
+        <p>How many Random Hats would you like to purchse?: {steps}</p>
+        <button onClick={incrementSteps}>Add Random Hat</button>
+        {steps >= 10 && <p>You've reached the maximum amount of hats that can be purchased</p>}
+      </div>
+    )
+}  
+//
   const handleDelete = (id) => {
     // Implement the delete functionality here
   };
