@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const methodOverride = require('method-override');
-
+const PORT = process.env.PORT || 3008;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -27,22 +27,6 @@ app.get('/', (req, res) => {
     <button><a href="/api/cart">Cart</a></button>
     <button><a href="/api/cart/add">Add to cart</a></button>
   `);
-});
-
-// Route for fetching cart data
-app.get('/api/cart', async (req, res) => {
-  try {
-    // Simulate a delay in fetching data
-    const delayedData = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(cart);
-      }, 2000);
-    });
-    const result = await delayedData;
-    res.json(result);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
 });
 
 // Route for adding items to the cart
@@ -119,7 +103,7 @@ app.get('/api/cart', async (req, res) => {
         });
 
         const result = await delayedData;
-        res.render("index", { Cart: result });
+        res.render("Cart", { Cart: result });
     } catch (error) {
         console.log(error);
         res.status(500).send(`${error}`);
