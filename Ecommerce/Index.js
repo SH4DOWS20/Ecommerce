@@ -32,25 +32,9 @@ app.get('/', (req, res) => {
   `);
 });
 
-// Route for fetching cart data
-app.get('/api/cart', async (req, res) => {
-  try {
-    // Simulate a delay in fetching data
-    const delayedData = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(cart);
-      }, 2000);
-    });
-    const result = await delayedData;
-    res.json(result);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-});
-
 // Route for adding items to the cart
 app.get('/api/cart/add', (req, res) => {
-  res.render('Browse'); // Assuming you have a 'Browse.ejs' template in the 'views' directory
+  res.render("Browse", { cart: cart });
 });
 
 // Route for adding items to the cart by ID
@@ -68,6 +52,7 @@ app.post('/api/cart', (req, res) => {
   };
 
   cart.push(newcart);
+  Cart.push(newcart);
   res.redirect('/api/cart');
 });
 
@@ -103,82 +88,82 @@ app.delete('/api/cart/delete/:id', (req, res) => {
 
 // Create an HTTP server and pass the Express app to it.
 
+
+// Define the port number. Use the value from the environment variable 'PORT', or default to 3008.
+const PORT = process.env.PORT || 3008;
+
 const Cart = [
-    { id: 1, name: 'Limited IceDog hat' },
-    { id: 2, name: 'Navy blue beanie' },
-    { id: 3, name: 'Green baseball cap' },
+  { id: 1, name: 'Limited IceDog hat' },
+  { id: 2, name: 'Navy blue beanie' },
+  { id: 3, name: 'Green baseball cap' },
 ];
 
 app.get('/', (req, res) => {
-    res.send(`<button><a href="/cart">Cart</a></button> <button><a href="/addCart">Add Cart</a></button>`);
+  res.send(`<button><a href="/cart">Cart</a></button> <button><a href="/addCart">Add Cart</a></button>`);
 });
 
 app.get('/api/cart', async (req, res) => {
-    try {
-        const delayedData = new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(Cart);
-            }, 2000);
-        });
+  try {
+    const delayedData = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(Cart);
+      }, 2000);
+    });
 
-        const result = await delayedData;
-        res.render("index", { Cart: result });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send(`${error}`);
-    }
-});
-
-app.get('/api/cart/add', (req, res) => {
-    res.render('addCart.ejs');
+    const result = await delayedData;
+    res.render("Cart", { Cart: result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(`${error}`);
+  }
 });
 
 app.get('/api/cart/add/:id', (req, res) => {
-    const CartId = parseInt(req.params.id);
-    const cartItem = Cart.find(item => item.id == CartId);
-    if (cartItem) {
-        res.render('updateCart.ejs', { cartItem: cartItem });
-    } else {
-        res.status(404).send(`Cart with ID ${CartId} not found.`);
-    }
+  const CartId = parseInt(req.params.id);
+  const cartItem = Cart.find(item => item.id == CartId);
+  if (cartItem) {
+    res.render('updateCart.ejs', { cartItem: cartItem });
+  } else {
+    res.status(404).send(`Cart with ID ${CartId} not found.`);
+  }
 });
 
 app.post('/api/cart', (req, res) => {
-    console.log(req.body.name);
+  console.log(req.body.name);
 
-    const newCart = {
-        id: Cart.length + 1,
-        name: req.body.name,
-    };
+  const newCart = {
+    id: Cart.length + 1,
+    name: req.body.name,
+  };
 
-    Cart.push(newCart);
-    res.redirect('/api/cart');
+  Cart.push(newCart);
+  res.redirect('/api/cart');
 });
 
 app.post('/api/cart/delete/:id', (req, res) => {
-    const CartId = parseInt(req.params.id);
-    const index = Cart.findIndex(item => item.id == CartId);
-    if (index !== -1) {
-        Cart.splice(index, 1);
-        res.redirect('/api/cart/');
-    } else {
-        res.status(404).send(`Cart with ID ${CartId} not found.`);
-    }
+  const CartId = parseInt(req.params.id);
+  const index = Cart.findIndex(item => item.id == CartId);
+  if (index !== -1) {
+    Cart.splice(index, 1);
+    res.redirect('/api/cart/');
+  } else {
+    res.status(404).send(`Cart with ID ${CartId} not found.`);
+  }
 });
 
 app.post('/api/cart/update/:id', (req, res) => {
-    const CartId = parseInt(req.params.id);
-    const updateName = req.body.name;
-    const cartItem = Cart.find(item => item.id == CartId);
+  const CartId = parseInt(req.params.id);
+  const updateName = req.body.name;
+  const cartItem = Cart.find(item => item.id == CartId);
 
-    if (cartItem) {
-        cartItem.name = updateName;
-        res.redirect('/api/cart');
-    } else {
-        res.status(404).send(`Cart with ID ${CartId} not found.`);
-    }
+  if (cartItem) {
+    cartItem.name = updateName;
+    res.redirect('/api/cart');
+  } else {
+    res.status(404).send(`Cart with ID ${CartId} not found.`);
+  }
 });
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`);
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}/`);
 });
