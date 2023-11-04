@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import CartList from './components/CartList';
-import RandomHatPurchase from './randomhatpurchse';
 
 function App() {
   const [cart, setCart] = useState([]);
   const [newItem, setNewItem] = useState('');
 
-  // Implement the delete functionality here
+  useEffect(() => {
+    // Fetch data from the server and update the state
+    fetch('/api/cart')
+      .then((response) => response.json())
+      .then((data) => setCart(data))
+      .catch((error) => console.error(error));
+  }, []);
+
   const handleDelete = (id) => {
     const updatedCart = cart.filter(item => item.id !== id);
     setCart(updatedCart);

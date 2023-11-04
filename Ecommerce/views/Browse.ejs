@@ -1,28 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browse Items</title>
-</head>
-<body>
-    <h1>Browse Items</h1>
+<h1>Search for a item to add to your cart</h1>
 
-    <!-- Display a list of items from the cart -->
-    <ul>
-        <% cart.forEach(item => { %>
-            <li><%= item.name %></li>
-        <% }); %>
-    </ul>
+<form action="/api/Cart" method="POST" class="form-example">
+  <label for="name">Enter Hat Name: </label>
+  <input type="text" name="name" id="name" required />
 
-    <!-- Add a new item to the cart form -->
-    <form action="/api/cart" method="POST" class="form-example">
-        <label for="name">Enter the item you are searching for: </label>
-        <input type="text" name="name" id="name" required />
-        <input type="submit" value="Add to Cart" />
-    </form>
-
-    <!-- Link to go back to the store's home page -->
-    <p><a href="/">Go back to the store home page</a></p>
-</body>
-</html>
+  <input type="submit" value="add a new item!" />
+</form>
