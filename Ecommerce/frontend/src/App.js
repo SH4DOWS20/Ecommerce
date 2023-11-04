@@ -14,17 +14,24 @@ function App() {
   }, []);
 
   const handleDelete = (id) => {
-    // Implement the delete functionality here
+    const updatedCart = cart.filter(item => item.id !== id);
+    setCart(updatedCart);
   };
 
-  const handleUpdate = (id) => {
-    // Implement the update functionality here
+  // Implement the update functionality here
+  const handleUpdate = (id, updatedItem) => {
+    const updatedCart = cart.map(item => item.id === id ? updatedItem : item);
+    setCart(updatedCart);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Assuming newItem is an object representing a cart item
-    setCart([...cart, newItem]);
+    // Create a new item object and add it to the cart
+    const newItemObject = {
+      id: cart.length + 1, // You should use a proper ID generation mechanism
+      name: newItem,
+    };
+    setCart([...cart, newItemObject]);
     setNewItem('');
   };
 
@@ -43,6 +50,9 @@ function App() {
         />
         <button type="submit">Add Item to Cart</button>
       </form>
+
+      <h2>Random Hat Purchase</h2>
+      <RandomHatPurchase />
     </div>
   );
 }
