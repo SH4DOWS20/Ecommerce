@@ -43,34 +43,20 @@ function App() {
   const handleDelete = (id) => {
     const updatedCart = cart.filter(item => item.id !== id);
     setCart(updatedCart);
+    const updatedCart = cart.filter(item => item.id !== id);
+    setCart(updatedCart);
   };
 
-  const handleUpdate = (id) => {
-    // Implement the update functionality here
+  // Implement the update functionality here
+  const handleUpdate = (id, updatedItem) => {
+    const updatedCart = cart.map(item => item.id === id ? updatedItem : item);
+    setCart(updatedCart);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    // Create an object representing the new item
-    const newItemData = { name: newItem };
-
-    // Send a POST request to add the new item to the cart
-    fetch('http://localhost:3008/api/cart/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newItemData),
-    })
-      .then(response => response.json())
-      .then(data => {
-        dispatch({ type: 'ADD_ITEM', payload: data });
-        console.log(data);
-      })
-      .catch(error => console.error(error));
-
-    // Clear the input field
+    // Assuming newItem is an object representing a cart item
+    setCart([...cart, newItem]);
     setNewItem('');
   };
 
