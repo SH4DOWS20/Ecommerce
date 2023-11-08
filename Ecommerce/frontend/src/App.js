@@ -41,10 +41,9 @@ function App() {
       })
       .catch(error => console.error(error));
   const handleDelete = (id) => {
+    setCart(cart.filter(item => item.id !== id));
     const updatedCart = cart.filter(item => item.id !== id);
-    setCart(updatedCart);
-    const updatedCart = cart.filter(item => item.id !== id);
-    setCart(updatedCart);
+    setCart(cart.filter(item => item.id !== id));
   };
 
   // Implement the update functionality here
