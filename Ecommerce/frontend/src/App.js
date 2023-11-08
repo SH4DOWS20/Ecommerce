@@ -40,22 +40,13 @@ function App() {
         console.log(data);
       })
       .catch(error => console.error(error));
+  const handleDelete = (id) => {
+    const updatedCart = cart.filter(item => item.id !== id);
+    setCart(updatedCart);
   };
 
-  const handleUpdate = (id, updatedData) => {
-    fetch(`http://localhost:3008/api/cart/update/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedData),
-    })
-      .then(response => response.json())
-      .then(data => {
-        dispatch({ type: 'UPDATE_ITEM', payload: data });
-        console.log(data);
-      })
-      .catch(error => console.error(error));
+  const handleUpdate = (id) => {
+    // Implement the update functionality here
   };
 
   const handleSubmit = e => {
@@ -101,6 +92,9 @@ function App() {
         />
         <button type="submit">Add Item to Cart</button>
       </form>
+
+      <h2>Random Hat Purchase</h2>
+      <RandomHatPurchase />
     </div>
   );
 }
