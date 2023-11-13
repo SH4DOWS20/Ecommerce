@@ -1,20 +1,15 @@
-<h1>Here are your purchases</h1>
+<h1>Items In Your Cart</h1>
 
-<% for(i = 0; i < cart.length; i++) { %>
-  <div>
-    <h1><%= cart[i].name %></h1>
-    
-   <%# update form %>
-    <form action="/api/cart/update/<%= cart[i].id %>" method="GET">
-			<input type="text" name="name" id="name" placeholder="<%= cart[i].name %>">      
-			<button type="submit">Update</button>
-    </form>
+<% for(i=0; i < Cart.length ; i++){ %>
+<h1><%= Cart[i].name %></h1>
 
-    <%# delete button %>
-    <form action="/api/cart/delete/<%= cart[i].id %>" method="POST">
-      <input type="hidden" name="_method" value="DELETE">
-      <button type="submit">Delete</button>
-    </form>
-  </div>
-  
+<form action="/api/Cart/update/<%= Cart[i].id %>" method="post">
+  <input type="text" name="name" id="name" placeholder="<%= Cart[i].name %>" />
+  <button type="submit">Update</button>
+</form>
+
+<form action="/api/Cart/delete/<%= Cart[i].id %>" method="post">
+  <input type="hidden" name="_method" value="DELETE" />
+  <button>Delete <%= Cart[i].name %></button>
+</form>
 <% } %>

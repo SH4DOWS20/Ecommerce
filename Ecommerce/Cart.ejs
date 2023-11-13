@@ -1,20 +1,10 @@
-<h1>Here are your purchases</h1>
+<h1> Search for a Item to add to your Cart </h1>
 
-<% for(i = 0; i < cart.length; i++) { %>
-  <div>
-    <h1><%= cart[i].name %></h1>
-    
-   <%# update form %>
-    <form action="/api/cart/update/<%= cart[i].id %>" method="GET">
-			<input type="text" name="name" id="name" placeholder="<%= cart[i].name %>">      
-			<button type="submit">Update</button>
-    </form>
+<form action="/api/Cart" method="POST" class="form-example">
 
-    <%# delete button %>
-    <form action="/api/cart/delete/<%= cart[i].id %>" method="POST">
-      <input type="hidden" name="_method" value="DELETE">
-      <button type="submit">Delete</button>
-    </form>
-  </div>
-  
-<% } %>
+      <label for="name">Enter Hat Name: </label>
+      <input type="text" name="name" id="name" required />
+
+      <input type="submit" value="Add a new hat" />
+
+</form>
