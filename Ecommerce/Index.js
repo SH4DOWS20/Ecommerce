@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const methodOverride = require('method-override');
-const PORT = process.env.PORT || 3008;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -136,30 +135,8 @@ app.post('/api/cart', (req, res) => {
     res.redirect('/api/cart');
 });
 
-app.post('/api/cart/delete/:id', (req, res) => {
-  const CartId = parseInt(req.params.id);
-  const index = Cart.findIndex(item => item.id == CartId);
-  if (index !== -1) {
-    Cart.splice(index, 1);
-    res.redirect('/api/cart/');
-  } else {
-    res.status(404).send(`Cart with ID ${CartId} not found.`);
-  }
+// Add an error event listener to handle server-related errors.
+server.on('error', (err) => {
+  console.error('Server error:', err);
 });
 
-app.post('/api/cart/update/:id', (req, res) => {
-  const CartId = parseInt(req.params.id);
-  const updateName = req.body.name;
-  const cartItem = Cart.find(item => item.id == CartId);
-
-  if (cartItem) {
-    cartItem.name = updateName;
-    res.redirect('/api/cart');
-  } else {
-    res.status(404).send(`Cart with ID ${CartId} not found.`);
-  }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
-});
