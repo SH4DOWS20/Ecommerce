@@ -17,6 +17,19 @@ app.use((req, res, next) => {
   next();
 });
 
+let db;
+
+(async function() {
+    try {
+      const client = await MongoClient.connect(uri, { useUnifiedTopology: true });
+      console.log('Connected to MongoDB.');
+      db = client.db("IceDog");
+
+    } catch (err) {
+      console.error('Error occurred while connecting to MongoDB:', err);
+    }
+})();
+
 // Sample cart data
 const cart = [
   { id: 1, name: 'Exclusive ice hat' },
@@ -31,6 +44,18 @@ app.get('/', (req, res) => {
     <button><a href="/api/cart/add">Add to cart</a></button>
   `);
 });
+
+app.get('/api/Cart', async (req, res) => {
+  try {
+      const collection = db.collection('browse');
+      const workouts = await collection.find({}).toArray();
+      res.render("workouts",{workouts});
+  } catch (err) {
+      console.log(err);
+      res.status(500).send('Error fetching from database');
+  }
+});
+
 
 // Route for fetching cart data
 app.get('/api/cart', async (req, res) => {
@@ -69,6 +94,26 @@ app.post('/api/cart', (req, res) => {
 
   cart.push(newcart);
   res.redirect('/api/cart');
+});
+
+app.post('/api/Cart', (req, res) => {
+  const { name, duration } = req.body;
+
+  const newCart = {
+    name,
+    duration: parseInt(duration),
+  };
+
+  const collection = db.collection('Cart');
+  collection.insertOne(newWorkout, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error saving to database');
+      return;
+    }
+    console.log('Saved to database');
+  });
+  res.redirect('/api/Cart');
 });
 
 // Route for updating cart items by ID
