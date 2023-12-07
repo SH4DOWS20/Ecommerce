@@ -17,6 +17,11 @@ const cartReducer = (state, action) => {
   }
 };
 
+function RandomHatPurchase() {
+  // Define RandomHatPurchase logic here
+  return <p>Random Hat Purchase Component</p>;
+}
+
 function App() {
   const [cart, dispatch] = useReducer(cartReducer, []);
   const [newItem, setNewItem] = useState('');
@@ -40,22 +45,42 @@ function App() {
         console.log(data);
       })
       .catch(error => console.error(error));
-  const handleDelete = (id) => {
-    setCart(cart.filter(item => item.id !== id));
-    const updatedCart = cart.filter(item => item.id !== id);
-    setCart(cart.filter(item => item.id !== id));
   };
 
   // Implement the update functionality here
   const handleUpdate = (id, updatedItem) => {
-    const updatedCart = cart.map(item => item.id === id ? updatedItem : item);
-    setCart(updatedCart);
+    fetch(`http://localhost:3008/api/cart/update/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedItem),
+    })
+      .then(response => response.json())
+      .then(data => {
+        dispatch({ type: 'UPDATE_ITEM', payload: data });
+        console.log(data);
+      })
+      .catch(error => console.error(error));
   };
 
   const handleSubmit = e => {
     e.preventDefault();
     // Assuming newItem is an object representing a cart item
-    setCart([...cart, newItem]);
+    fetch('http://localhost:3008/api/cart/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newItem),
+    })
+      .then(response => response.json())
+      .then(data => {
+        dispatch({ type: 'ADD_ITEM', payload: data });
+        console.log(data);
+      })
+      .catch(error => console.error(error));
+
     setNewItem('');
   };
 
@@ -83,5 +108,5 @@ function App() {
     </div>
   );
 }
-}
+
 export default App;
