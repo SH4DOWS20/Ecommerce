@@ -1,20 +1,24 @@
-// Import the required modules
-import { MongoClient } from 'mongodb';
-import mongoose from 'mongoose';
 import express from 'express';
 import http from 'http';
-import methodOverride from 'method-override';
 import bodyParser from 'body-parser';
+import { MongoClient } from 'mongodb';
+import mongoose from 'mongoose';
+import methodOverride from 'method-override';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const app = express();
-const methodOverride = require('method-override');
-import methodOverride from 'method-override';
-import { MongoClient } from 'mongodb';
+
 // Middleware setup
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(bodyParser.json()); // Parse JSON bodies
 app.set('view engine', 'ejs'); // Set the view engine to EJS
-app.set('views', __dirname + '/views'); // Set the views directory (adjust the path as needed)
+
+// Use the updated __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.set('views', `${__dirname}/views`);
+
 app.use(methodOverride('_method')); // Override HTTP methods using a query parameter
 
 // Request logging middleware
@@ -24,11 +28,13 @@ app.use((req, res, next) => {
 });
 
 // MongoDB connection
+let db;
+
 (async function () {
   try {
     const client = await MongoClient.connect('mongodb://localhost:27017', { useUnifiedTopology: true });
     console.log('Connected to MongoDB.');
-    const db = client.db("Ecommerce");
+    db = client.db("Ecommerce");
     mongoose.connect('mongodb://localhost:27017/Ecommerce', { useNewUrlParser: true, useUnifiedTopology: true });
   } catch (err) {
     console.error('Error occurred while connecting to MongoDB:', err);
