@@ -1,8 +1,6 @@
 import express from 'express';
-import http from 'http';
 import bodyParser from 'body-parser';
 import http from 'http';
-import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
