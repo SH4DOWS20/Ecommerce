@@ -24,7 +24,7 @@ app.use(cors());
 // Function to generate a JWT token
 const generateToken = (user) => {
   const payload = { id: user._id, username: user.username };
-  const secretKey = '1234'; // Replace with a strong secret key
+  const secretKey = '1234'; // Secret Key
   const options = { expiresIn: '1h' }; // Token expiration time
 
   return jwt.sign(payload, secretKey, options);
