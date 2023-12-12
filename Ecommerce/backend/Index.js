@@ -1,6 +1,9 @@
 import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
+import express from 'express';
+import http from 'http';
+import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
@@ -131,65 +134,101 @@ app.use((req, res, next) => {
 // Create a new cart item
 app.post('/api/cart', async (req, res) => {
   try {
-    const { name, quantity } = req.body;
-
-    const newCartItem = new CartItem({
-      name,
-      quantity: quantity || 1,
-    });
-
-    const savedCartItem = await newCartItem.save();
-    res.status(201).json(savedCartItem);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+      const collection = db.collection('browse');
+      const workouts = await collection.find({}).toArray();
+      res.render("workouts",{workouts});
+  } catch (err) {
+      console.log(err);
+      res.status(500).send('Error fetching from database');
   }
 });
 
 // Get all cart items
 app.get('/api/cart', async (req, res) => {
   try {
-    const cartItems = await CartItem.find();
-    res.json(cartItems);
+    // Simulate a delay in fetching data
+    const delayedData = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(cart);
+      }, 2000);
+    });
+    const result = await delayedData;
+    res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Get a specific cart item by ID
-app.get('/api/cart/:id', async (req, res) => {
-  try {
-    const cartItemId = req.params.id;
-    const cartItem = await CartItem.findById(cartItemId);
+// Route for adding items to the cart
+app.get('/api/cart/add', (req, res) => {
+  res.render('Browse'); // Assuming you have a 'Browse.ejs' template in the 'views' directory
+});
 
-    if (!cartItem) {
-      return res.status(404).json({ error: 'Cart item not found' });
+// Route for adding items to the cart by ID
+app.get('/api/cart/add/:id', (req, res) => {
+  res.render('Addtocart'); // Assuming you have an 'Addtocart.ejs' template in the 'views' directory
+});
+
+// Route for handling POST requests to add items to the cart
+app.post('/api/cart', (req, res) => {
+  console.log(req.body.name);
+
+  const newcart = {
+    id: cart.length + 1,
+    name: req.body.name,
+  };
+
+  cart.push(newcart);
+  res.redirect('/api/cart');
+});
+
+app.post('/api/Cart', (req, res) => {
+  const { name, duration } = req.body;
+
+  const newCart = {
+    name,
+    duration: parseInt(duration),
+  };
+
+  const collection = db.collection('Cart');
+  collection.insertOne(newWorkout, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error saving to database');
+      return;
     }
+    console.log('Saved to database');
+  });
+  res.redirect('/api/Cart');
+});
 
-    res.json(cartItem);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+// Route for updating cart items by ID
+app.put('/api/cart/update/:id', (req, res) => {
+  console.log("fired put");
+  const cartId = parseInt(req.params.id);
+  const updatedName = req.body.name;
+
+  const cartItem = cart.find(c => c.id === cartId);
+
+  if (cartItem) {
+    cartItem.name = updatedName;
+    res.status(200).send(`Cart with ID ${cartId} updated.`);
+  } else {
+    res.status(404).send(`Cart with ID ${cartId} not found.`);
   }
 });
 
-// Update a cart item by ID
-app.put('/api/cart/:id', async (req, res) => {
-  try {
-    const cartItemId = req.params.id;
-    const { name, quantity } = req.body;
+// Route for deleting cart items by ID
+app.delete('/api/cart/delete/:id', (req, res) => {
+  const cartId = parseInt(req.params.id);
 
-    const updatedCartItem = await CartItem.findByIdAndUpdate(
-      cartItemId,
-      { name, quantity },
-      { new: true } // Return the updated document
-    );
+  const index = cart.findIndex(c => c.id === cartId);
 
-    if (!updatedCartItem) {
-      return res.status(404).json({ error: 'Cart item not found' });
-    }
-
-    res.json(updatedCartItem);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  if (index !== -1) {
+    cart.splice(index, 1);
+    res.redirect('/api/cart');
+  } else {
+    res.status(404).send(`Cart with ID ${cartId} not found.`);
   }
 });
 
