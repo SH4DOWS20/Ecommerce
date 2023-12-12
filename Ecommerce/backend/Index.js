@@ -91,7 +91,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Express session setup
-app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
+app.use(session({ secret: '1231243534543', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -183,11 +183,11 @@ app.delete('/api/cart/:id', async (req, res) => {
 });
 
 // Registration route
-app.get('/registration', (req, res) => {
-  res.render('registration'); // You can create a registration.ejs file for the registration form
+app.get('/register', (req, res) => {
+  res.render('register'); // You can create a registration.ejs file for the registration form
 });
 
-app.post('/registration', async (req, res) => {
+app.post('/register', async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -244,13 +244,18 @@ app.get('/profile', ensureAuthenticated, (req, res) => {
 
 // Route for the root URL
 app.get('/', (req, res) => {
-  res.send(`
-    <button><a href="/api/cart">Cart</a></button>
-    <button><a href="/api/cart/add">Add to Cart</a></button>
-    <button><a href="/login">Login</a></button>
-    <button><a href="/logout">Logout</a></button>
-    <button><a href="/registration">Registration</a></button> <!-- Added registration link -->
-  `);
+  if (req.isAuthenticated()) {
+    // Display content for authenticated users
+    res.send(`Welcome, ${req.user.username}! <button><a href="/logout">Logout</a></button>`);
+  } else {
+    // Display content for non-authenticated users
+    res.send(`
+      <button><a href="/api/cart">Cart</a></button>
+      <button><a href="/api/cart/add">Add to Cart</a></button>
+      <button><a href="/login">Login</a></button>
+      <button><a href="/register">Register</a></button>
+    `);
+  }
 });
 
 // Create an HTTP server and pass the Express app to it.
