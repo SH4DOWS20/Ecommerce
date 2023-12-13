@@ -1,40 +1,45 @@
 {
-  "type": "module",
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "ejs": "^3.1.9",
-    "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "json5": "^2.2.3",
-    "jsonwebtoken": "^9.0.2",
-    "method-override": "^3.0.0",
-    "mongoose": "^8.0.1",
-    "node.js": "^0.0.1-security",
-    "passport": "^0.7.0",
-    "passport-local": "^1.0.0"
-  },
-  "name": "backend",
-  "version": "1.0.0",
-  "main": "Index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "nodemon": "^3.0.1"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
-    ],
-    "sourceMaps": true,
-    "retainLines": true
-  }
+    "lockfileVersion": 3,
+    "requires": true,
+    "packages": {},
+    "type": "module",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "ejs": "^3.1.9",
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "json5": "^2.2.3",
+        "jsonwebtoken": "^9.0.2",
+        "method-override": "^3.0.0",
+        "mongodb": "^6.3.0",
+        "mongoose": "^8.0.3",
+        "node.js": "^0.0.1-security",
+        "passport": "^0.7.0",
+        "passport-local": "^1.0.0",
+        "stack": "^0.1.0"
+    },
+    "name": "backend",
+    "version": "1.0.0",
+    "main": "Index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "babel-preset-es2015": "^6.24.1",
+        "babel-register": "^6.26.0",
+        "nodemon": "^3.0.2"
+    },
+    "babel": {
+        "presets": [
+            "es2015"
+        ],
+        "sourceMaps": true,
+        "retainLines": true
+    }
 }
