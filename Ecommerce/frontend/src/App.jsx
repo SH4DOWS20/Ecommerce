@@ -5,8 +5,11 @@ import axios from 'axios'
 
 
 
-function App() {
 
+
+
+function App() {
+ 
   
 /*
 // this commented out section is to pull data that is stored in server.js server side
@@ -49,7 +52,10 @@ function App() {
     .catch(err => console.log(err))
   }, [])
 
+   
   return (
+    
+    <form>
     <div className='W100 vh-100 d-flex justify-content-center align-items-center'>
       <div className='w-50'>
         <table className='table'>
@@ -82,6 +88,7 @@ function App() {
         </table>
       </div>
     </div>
+    </form>
   )
 }
 
