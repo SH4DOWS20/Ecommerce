@@ -3,6 +3,12 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const ProductModel = require('./models/Products')
 const app = express()
+const http = require('http');
+
+
+
+
+
 
 /*
 //First sample to build an array to display data in client side
