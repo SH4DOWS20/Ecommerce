@@ -125,7 +125,6 @@
     "whatwg-url": "^13.0.0",
     "yallist": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "index.js",
     "dev": "nodemon index.js",
